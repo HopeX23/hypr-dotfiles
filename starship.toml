@@ -1,0 +1,18 @@
+add_newline = false
+format = '\[$username@$hostname $directory\]\$ '
+
+[username]
+format = "$user"
+show_always = true
+
+[hostname]
+ssh_only = false
+format = "$hostname"
+
+[directory]
+format = "$path"
+truncation_length = 1
+truncation_symbol = ""
+
+[character]
+disabled = true

@@ -46,6 +46,18 @@ hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"),
     { locked = true, repeating = true })
 
+--# Touchpad toggle (Fn + F10 on ASUS laptops)
+hl.bind("XF86TouchpadToggle", hl.dsp.exec_cmd(hyprScripts .. "/toggle-touchpad.sh"),
+    { locked = true, description = "Device: Toggle touchpad" })
+hl.bind("code:538", hl.dsp.exec_cmd(hyprScripts .. "/toggle-touchpad.sh"),
+    { locked = true, description = "Device: Toggle touchpad" })
+hl.bind("SUPER + F10", hl.dsp.exec_cmd(hyprScripts .. "/toggle-touchpad.sh"),
+    { locked = true, description = "Device: Toggle touchpad" })
+hl.bind("XF86TouchpadOn", hl.dsp.exec_cmd("hyprctl eval \"hl.device({ name = 'asue120d:00-04f3:31fb-touchpad', enabled = true })\"; notify-send -u low -a 'Hyprland' -i input-touchpad 'Touchpad' 'Touchpad Enabled'"),
+    { locked = true })
+hl.bind("XF86TouchpadOff", hl.dsp.exec_cmd("hyprctl eval \"hl.device({ name = 'asue120d:00-04f3:31fb-touchpad', enabled = false })\"; notify-send -u low -a 'Hyprland' -i touchpad-disabled 'Touchpad' 'Touchpad Disabled'"),
+    { locked = true })
+
 hl.bind("CTRL + SUPER + T", hl.dsp.global("quickshell:wallpaperSelectorToggle"),
     { description = "Shell: Change wallpaper" })
 hl.bind("CTRL + SUPER + ALT + T", hl.dsp.global("quickshell:wallpaperSelectorRandom"),

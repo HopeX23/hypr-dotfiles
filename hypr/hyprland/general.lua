@@ -4,16 +4,14 @@ hl.monitor({
     output = "HDMI-A-3",
     mode = "preferred",
     position = "0x0",
-    scale = 1,
-    bitdepth = 10
+    scale = 1
 })
 
 hl.monitor({
     output = "eDP-1",
     mode = "1920x1200@165",
     position = "0x1080",
-    scale = 1,
-    bitdepth = 10
+    scale = 1
 })
 
 -- Fallback for any other monitors plugged in later
@@ -21,8 +19,7 @@ hl.monitor({
     output = "",
     mode = "preferred",
     position = "auto",
-    scale = 1,
-    bitdepth = 10
+    scale = 1
 })
 
 hl.gesture({
@@ -280,6 +277,7 @@ hl.config({
 
         follow_mouse = 1,
         off_window_axis_events = 2,
+        resolve_binds_by_sym = 1,
 
         -- Low Latency Gaming Mouse
         sensitivity = 0,
@@ -329,3 +327,15 @@ hl.config({
         force_zero_scaling = true
     }
 })
+
+-- Restore persistent touchpad state
+local touchpad_state_file = (os.getenv("XDG_STATE_HOME") or (os.getenv("HOME") .. "/.local/state")) .. "/touchpad_state"
+local state_f = io.open(touchpad_state_file, "r")
+if state_f then
+    local state_content = state_f:read("*all")
+    state_f:close()
+    if state_content and state_content:match("disabled") then
+        hl.device({ name = "asue120d:00-04f3:31fb-touchpad", enabled = false })
+    end
+end
+

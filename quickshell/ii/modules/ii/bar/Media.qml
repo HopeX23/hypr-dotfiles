@@ -20,10 +20,10 @@ Item {
     implicitHeight: Appearance.sizes.barHeight
 
     Timer {
-        running: activePlayer?.playbackState == MprisPlaybackState.Playing
+        running: activePlayer !== null && activePlayer.playbackState == MprisPlaybackState.Playing
         interval: Config.options.resources.updateInterval
         repeat: true
-        onTriggered: activePlayer.positionChanged()
+        onTriggered: activePlayer?.positionChanged?.() ?? undefined
     }
 
     MouseArea {
@@ -52,7 +52,7 @@ Item {
             id: mediaCircProg
             Layout.alignment: Qt.AlignVCenter
             lineWidth: Appearance.rounding.unsharpen
-            value: activePlayer?.position / activePlayer?.length
+            value: activePlayer?.length > 0 ? activePlayer?.position / activePlayer?.length : 0
             implicitSize: 20
             colPrimary: Appearance.colors.colOnSecondaryContainer
             enableAnimation: false

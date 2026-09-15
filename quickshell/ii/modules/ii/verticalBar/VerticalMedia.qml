@@ -21,10 +21,10 @@ MouseArea {
     implicitWidth: Appearance.sizes.verticalBarWidth
 
     Timer {
-        running: activePlayer?.playbackState == MprisPlaybackState.Playing
+        running: activePlayer !== null && activePlayer.playbackState == MprisPlaybackState.Playing
         interval: Config.options.resources.updateInterval
         repeat: true
-        onTriggered: activePlayer.positionChanged()
+        onTriggered: activePlayer?.positionChanged?.() ?? undefined
     }
 
     acceptedButtons: Qt.MiddleButton | Qt.BackButton | Qt.ForwardButton | Qt.RightButton | Qt.LeftButton
@@ -47,7 +47,7 @@ MouseArea {
         implicitSize: 20
 
         lineWidth: Appearance.rounding.unsharpen
-        value: activePlayer?.position / activePlayer?.length
+        value: activePlayer?.length > 0 ? activePlayer?.position / activePlayer?.length : 0
         colPrimary: Appearance.colors.colOnSecondaryContainer
         enableAnimation: false
 
